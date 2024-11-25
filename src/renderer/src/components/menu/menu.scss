@@ -1,0 +1,33 @@
+@import '../../styles/base/mixinResponse';
+
+.container-menu {
+    z-index: 1000;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    height: calc(100vh - 60px);
+    transition: all 0.400s ease;
+    position: fixed;
+    overflow: hidden;
+
+    &.active {
+        width: 250px;
+
+        @include mobile {
+            width: 100vw;
+        }
+    }
+
+    &.inactive {
+        @include mobile {
+            width: 0%;
+            margin-left: -100px;
+        }
+    }
+
+    .sub-container-menu {
+        padding-bottom: 50px;
+        overflow-x: hidden;
+        height: calc(100vh - 60px);
+        transition: all 0.4s ease;
+    }
+}

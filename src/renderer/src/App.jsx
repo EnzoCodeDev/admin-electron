@@ -1,33 +1,26 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import 'animate.css';
+import axios from 'axios';
+import { ConfigProvider, theme } from 'antd';
+import { Router } from './routers/Router';
+import env from './config/env';
+import 'dayjs/locale/es';
+import dayjs from 'dayjs';
+import configStore from './store/configStore';
+
+dayjs.locale('es')
 
 function App() {
-  const ipcHandle = () => window.electron.ipcRenderer.send('ping')
-
+  //Configuracion para poner por defecto las petciones axios
+  const configTienda = configStore((state) => state);
+  axios.defaults.baseURL = env['url'];
+  axios.defaults.headers["Content-Type"] = "application/json;charset=UTF-8";
+  axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
+    <ConfigProvider
+      theme={{ algorithm: (configTienda["theme"] === 'ligth' ? theme.compactAlgorithm : theme.darkAlgorithm) }}
+    >
+      <Router />
+    </ConfigProvider>
   )
 }
 
