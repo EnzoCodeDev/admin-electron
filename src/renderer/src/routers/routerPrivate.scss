@@ -1,27 +1,27 @@
 @import '../styles/base/mixinResponse';
 
 .container-pages {
-  background: #0d1117;
+  background: #ffffff;
   display: flex;
   transition: all 0.400s ease;
   overflow-x: hidden;
 }
 
 .container-app {
-  width: calc(100% - 70px);
+  width: calc(100% - 85px);
   margin: 10px 10px 10px 10px;
-  margin-left: 70px;
+  margin-left: 85px;
   margin-top: 70px;
   min-height: calc(100vh - 80px);
   transition: all 0.400s ease;
 
   @include mobile {
-    margin-left: 10px;
+    margin-left: 30px;
     width: calc(100% - 20px);
   }
 
   &.active {
-    margin-left: 260px;
-    width: calc(100% - 260px);
+    margin-left: 210px;
+    width: calc(100% - 210px);
   }
 }

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Col, Form, Input, Row, Spin } from "antd";
 import { messagesInfo } from "../../components/messages/Messages";
 import userStore from "../../store/userStore";
+import axios from "axios";
 
 export const Login = () => {
   let navigate = useNavigate();
@@ -20,14 +21,14 @@ export const Login = () => {
     setloading(true);
     authServices.loginByEmail(values)
       .then((resp) => {
-        if (resp["data"]["success"]) {
+        if (resp["data"]["res"]) {
           userTienda.setState({
             login: true,
-            typeUser: resp["data"]['user']['type_user'],
             user: resp["data"]['user'],
             token: resp["data"]['token'],
             token_type: resp["data"]['type'],
           });
+          axios.defaults.headers["Authorization"] = `Bearer ${resp["data"]['token']}`;
           localStorage.setItem('token_bearer', resp["data"]['token']);
           navigate("/home");
           messagesInfo.success('Sesión iniciada correctamente');
@@ -122,41 +123,6 @@ export const Login = () => {
               </div>
             </Form.Item>
           </Form>
-          {/* <form className="form" onSubmit={handleLogin}>
-            <div className="input_email">
-              <label>Correo electronico</label>
-              <Input
-                className="input"
-                size="large"
-                type="email"
-                placeholder="Correo electronico"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                prefix={
-                  <UserOutlined />
-                }
-              />
-            </div>
-            <div className="input_password">
-              <label>Contraseña</label>
-              <Input.Password
-                className="input"
-                size="large"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Contraseña"
-                prefix={
-                  <EllipsisOutlined />
-                }
-              />
-            </div>
-
-            <div className="button_content">
-              <button type="submit" className="button">
-                <span className="botom_init_seccion">Iniciar sesión</span>
-              </button>
-            </div>
-          </form> */}
         </div>
       </div>
     </Spin>

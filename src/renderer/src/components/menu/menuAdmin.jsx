@@ -1,10 +1,26 @@
-// import CalendarIcon from '@rsuite/icons/Calendar';
-// import PlusIcon from "@rsuite/icons/Plus";
+import CalendarIcon from '@rsuite/icons/Calendar';
+import PlusIcon from "@rsuite/icons/Plus";
 // import ListIcon from "@rsuite/icons/List";
 // import UserBadgeIcon from "@rsuite/icons/UserBadge";
 // import SingleSourceIcon from '@rsuite/icons/SingleSource';
 
 export const menuAdmin = [
+  {
+    icon: <CalendarIcon size="8em" />,
+    label: "Acción comunal",
+    children: [
+      // {
+      //   icon: <ListIcon />,
+      //   label: "Ver archivos cargados",
+      //   navigate: "/accionComunal",
+      // },
+      {
+        icon: <PlusIcon />,
+        label: "Cargar archivo",
+        navigate: "/accionComunal/form",
+      },
+    ],
+  },
   // {
   //   icon: <CalendarIcon size="8em" />,
   //   label: "Eventos",
@@ -47,10 +63,10 @@ export const menuAdmin = [
   //       label: "Instituciones",
   //       navigate: "/Repositorio",
   //     },
-      
-     
+
+
   //   ],
   // },
-  
- 
+
+
 ];

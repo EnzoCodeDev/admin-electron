@@ -6,6 +6,7 @@ import { authServices } from "../services/authServices";
 import { Login } from "../view/login/Login";
 import { LoadingPages } from "../components/atomos/loadingPages/LoadingPages";
 import userStore from "../store/userStore";
+import axios from "axios";
 
 export const Router = () => {
   const userTienda = userStore((state) => state);
@@ -18,9 +19,9 @@ export const Router = () => {
       authServices
         .loginByToken(token)
         .then((res) => {
+          axios.defaults.headers["Authorization"] = `Bearer ${res["data"]['token']}`;
           userTienda.setState({
             login: true,
-            typeUser: res["data"]['user']['type_user'],
             user: res["data"]['user'],
             token: res["data"]['token'],
             token_type: res["data"]['type'],
@@ -28,6 +29,7 @@ export const Router = () => {
           setLoading(false);
         })
         .catch((error) => {
+          console.log(error);
           userTienda.resetState();
           setLoading(false);
         });
